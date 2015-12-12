@@ -2,6 +2,8 @@
 
 leveldown with a cache, for fast puts and gets
 
+[![Build Status](https://travis-ci.org/mvayngrib/cachedown.png)](https://travis-ci.org/mvayngrib/cachedown)
+
 ## Usage
 
 ```js
