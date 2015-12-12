@@ -1,6 +1,6 @@
 # cachedown
 
-leveldown with a cache, for fast puts and gets
+leveldown with an lru cache, for fast puts and gets
 
 [![Build Status](https://travis-ci.org/mvayngrib/cachedown.png)](https://travis-ci.org/mvayngrib/cachedown)
 
