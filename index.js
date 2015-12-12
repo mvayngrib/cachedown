@@ -90,6 +90,7 @@ CacheDOWN.prototype._isBuffer = function (obj) {
 
 CacheDOWN.prototype.clearCache = function () {
   this._cache.reset()
+  return this
 }
 
 CacheDOWN.prototype._cachePut = function (key, value) {
@@ -110,6 +111,7 @@ CacheDOWN.prototype._cacheDel = function (key, value) {
 
 CacheDOWN.prototype.maxSize = function (size) {
   this._cache.max = size
+  return this
 }
 
 CacheDOWN.setLeveldown = function (leveldown) {
