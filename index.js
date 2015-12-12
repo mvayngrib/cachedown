@@ -43,8 +43,8 @@ CacheDOWN.prototype._put = function (key, value, options, callback) {
 
 CacheDOWN.prototype._get = function (key, options, callback) {
   var self = this
-  if (key in this._cache) {
-    var val = this._cache.get(key)
+  if (this._cacheHas(key)) {
+    var val = this._cacheGet(key)
     if (options.asBuffer !== false && !this._isBuffer(val)) {
       val = new Buffer(String(val))
     }
@@ -94,6 +94,14 @@ CacheDOWN.prototype.clearCache = function () {
 
 CacheDOWN.prototype._cachePut = function (key, value) {
   this._cache.set(key, value)
+}
+
+CacheDOWN.prototype._cacheGet = function (key) {
+  return this._cache.get(key)
+}
+
+CacheDOWN.prototype._cacheHas = function (key) {
+  return this._cache.has(key)
 }
 
 CacheDOWN.prototype._cacheDel = function (key, value) {

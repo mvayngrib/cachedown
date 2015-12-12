@@ -14,14 +14,25 @@ module.exports.setUp = function (leveldown, test, testCommon) {
 module.exports.all = function (leveldown, tape, testCommon) {
   module.exports.setUp(leveldown, tape, testCommon);
 
-  tape('test put/del hit cache', function (t) {
+  tape('test put/get/del hit cache', function (t) {
     var db = levelup('blah', {db: leveldown}, function () {
       var cache = db.db._cache
+      var underlyingDown = db.db._down
       db.put('a', 'b', function () {
         t.equal(cache.get('a'), 'b')
-        db.del('a', function () {
-          t.equal(cache.get('a'), undefined)
-          t.end()
+        var get = underlyingDown._get
+        underlyingDown._get = function () {
+          t.fail('value should come from cache')
+          return get.apply(underlyingDown, arguments)
+        }
+
+        db.get('a', function (err, val) {
+          t.error(err)
+          t.equal(val, 'b')
+          db.del('a', function () {
+            t.equal(cache.get('a'), undefined)
+            t.end()
+          })
         })
       })
 
